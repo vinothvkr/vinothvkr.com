@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Avatar, Box, Container, Stack, Typography } from '@mui/material';
+
+// FONTS
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{height: '100vh'}}>
+      <Container sx={{height: 'inherit'}}>
+        <Stack sx={{height: 'inherit'}} justifyContent='center' alignItems='center' spacing={3}>
+          <Avatar alt='Vinoth Kumar Rajendran' src='/avatar.jpg' sx={{width: 200, height:200}} />
+          <Typography variant='h3' component='h1' color="#1A2027">
+            Vinoth Kumar Rajendran
+          </Typography> 
+        </Stack>  
+      </Container>      
+    </Box>
   );
 }
 
