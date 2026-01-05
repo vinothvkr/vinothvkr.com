@@ -3,7 +3,7 @@ import type { IconMap, SocialLink, Site } from '@/types'
 export const SITE: Site = {
   title: 'Vinoth Kumar Rajendran',
   description:
-    'website of Vinoth Kumar Rajendran - Software Engineer, Tech Enthusiast, and Blogger.',
+    'website of Vinoth Kumar Rajendran - Software Engineer and Tech Enthusiast.',
   href: 'https://vinothvkr.com',
   author: 'vinothvkr',
   locale: 'en-US',
