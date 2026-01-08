@@ -3,6 +3,7 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
 
@@ -17,30 +18,24 @@ const projects = await getAllProjects()
     <div class="min-w-full">
       <div class="prose mb-8">
         <p class="mt-0">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            external
-            underline>Astro</Link
-          >, <Link href="https://tailwindcss.com" external underline
-            >Tailwind</Link
-          >, and <Link href="https://ui.shadcn.com" external underline
-            >shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
+          Hi, I'm {SITE.title}, a Senior Software Engineer and Full-Stack Developer.
         </p>
         <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
-            underline>The State of Static Blogs in 2024</Link
-          >.
+         I work primarily with .NET on the backend and Angular and React on the frontend, building systems that are practical, scalable, and thoughtfully designed.
+         Over the years, I've learned that good software isn't just about writing code—it's about understanding problems, making trade-offs, and continuously improving how things are built.
         </p>
-      </div>
-
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
+        <p>
+          I'm naturally curious and enjoy exploring new technologies, tools, and ideas beyond my day-to-day work.
+          A lot of that exploration happens in my home lab, where I experiment, break things, rebuild them, and learn by doing.
+          It's where theory meets practice—and where I have the most fun.
+        </p>
+        <p>
+          This blog is a place for me to share what I'm learning along the way: technical insights, experiments, and lessons from real-world development.
+          If you're someone who enjoys understanding how things work under the hood, I hope you'll find something here that's useful or inspiring.
+        </p>
+        <p>
+          Thanks for stopping by.
+        </p>
       </div>
     </div>
   </section>
