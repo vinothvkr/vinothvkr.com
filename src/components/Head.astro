@@ -1,5 +1,5 @@
 ---
-import { SITE } from '@/consts'
+import { ANALYTICS, SITE } from '@/consts'
 import { ClientRouter } from 'astro:transitions'
 import Favicons from './Favicons.astro'
 ---
@@ -41,6 +41,19 @@ import Favicons from './Favicons.astro'
     title={SITE.title}
     href={new URL('rss.xml', Astro.site)}
   />
+
+  <!-- Google Analytics -->
+  {ANALYTICS.google && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.google}`}></script>
+      <script is:inline define:vars={{ googleId: ANALYTICS.google }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', googleId);
+      </script>
+    </>
+  )}
 
   <Favicons />
   <ClientRouter />

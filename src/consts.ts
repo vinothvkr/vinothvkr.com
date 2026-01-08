@@ -11,6 +11,10 @@ export const SITE: Site = {
   postsPerPage: 3,
 }
 
+export const ANALYTICS = {
+  google: import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID || '',
+}
+
 export const NAV_LINKS: SocialLink[] = [
   {
     href: '/blog',
