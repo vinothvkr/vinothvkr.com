@@ -7,65 +7,105 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-Today we are going to see how to setup our own VPN server. Here is a step by step guide to install and setup VPN server.
+import Callout from '@/components/Callout.astro';
 
-**Prerequisites:**
+## Overview
 
-We need a VPS with any Linux distribution setup and running with basic initial configuration. In this tutorial we are using Ubuntu 20.04 server, so the steps shown below would work on almost all the Debian based linux distributions.
+Setting up your own VPN (Virtual Private Network) server provides secure, encrypted access to your network from anywhere. This step-by-step guide will walk you through installing and configuring OpenVPN on a Linux server in just minutes using an automated setup script.
 
-To setup OpenVPN server we are going to use a script which will setup and configure a VPN server with in few seconds. The script is hosted in GitHub repository.
+## Prerequisites
 
-Let's begin to setup VPN server. First download the script to our server:
+You'll need the following to get started:
 
-```
+- A **VPS (Virtual Private Server)** with a public IP address
+- **Linux distribution** (Ubuntu 20.04 LTS recommended, works with Debian-based distros)
+- **SSH access** to your server with root or sudo privileges
+- **curl** installed on your server (usually pre-installed)
+
+<Callout variant="tip" title="Why Your Own VPN?">
+Running your own VPN gives you complete control over encryption, logging policies, and server location — unlike commercial VPN providers where you must trust the operator.
+</Callout>
+
+## The Setup Process
+
+We'll use the **angristan/openvpn-install** script, an automated setup tool that configures OpenVPN server and creates client certificates in seconds. This eliminates manual certificate generation and configuration file editing.
+
+## Step 1: Download and Prepare the Script
+
+SSH into your server and download the installation script:
+
+```bash
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
 ```
 
-Now make the script executable:
+Make the script executable:
 
-```
+```bash
 chmod +x openvpn-install.sh
 ```
 
-Run the script:
+Run the script with sudo privileges:
 
-```
+```bash
 sudo ./openvpn-install.sh
 ```
 
-Now it asks few questions before it install and configure the server.
+## Step 2: Configure the VPN Server
+
+The script will prompt you with several configuration questions. Here's what each option controls:
+
+### IP Address Selection
 
 ```
 IP address: XXX.XX.XX.XXX
 ```
 
-Script itself detect the VPS public IP address. Verify the IP address it shows is correct.
+The script auto-detects your VPS's public IP address. **Verify this is correct** — this IP is how clients will connect to your VPN server.
+
+<Callout variant="warning">
+If you see a private IP (e.g., 192.168.x.x or 10.x.x.x), your VPS may not have a public IP. Contact your provider or check your network configuration.
+</Callout>
+
+### IPv6 Support
 
 ```
-Do you want to enable IPv6 support (NAT)? &#91;y/n]: n
+Do you want to enable IPv6 support (NAT)? [y/n]: n
 ```
 
-If you want to enable IPv6 support enter "y" else "n".
+**Recommendation:** Enter `n` unless you specifically need IPv6. Most users should disable it for simpler firewall rules and wider compatibility with older networks.
+
+### Port Selection
 
 ```
 Which port do you want OpenVPN to listen to?
      1) Default: 1194
      2) Custom
-     3) Random &#91;49152-65535]
-Port choice &#91;1-3]: 1
+     3) Random [49152-65535]
+Port choice [1-3]: 1
 ```
 
-Choose a port of your choice. I chose the default port.
+**Options explained:**
+- **Default (1194)**: Standard OpenVPN port; works in most networks but may be blocked by restrictive firewalls
+- **Custom**: Choose your own port (e.g., 443 for HTTPS-like obfuscation)
+- **Random**: Generate a random high port; better obfuscation from ISPs
+
+<Callout variant="tip">
+If you're behind a restrictive corporate firewall, port 443 (HTTPS) often gets better network access than 1194.
+</Callout>
+
+### Protocol Selection
 
 ```
 What protocol do you want OpenVPN to use?
 UDP is faster. Unless it is not available, you shouldn't use TCP.
      1) UDP
      2) TCP
-Protocol &#91;1-2]: 1
+Protocol [1-2]: 1
 ```
 
-Choose the protocol you prefer.
+**Recommendation:** Choose **UDP (option 1)** for better speed and lower latency. Use TCP only if your network actively blocks UDP traffic.
+
+### DNS Resolver Selection
 
 ```
 What DNS resolvers do you want to use with the VPN?
@@ -82,54 +122,139 @@ What DNS resolvers do you want to use with the VPN?
     11) AdGuard DNS (Anycast: worldwide)
     12) NextDNS (Anycast: worldwide)
     13) Custom
-DNS &#91;1-12]: 3
+DNS [1-12]: 3
 ```
 
-Choose a DNS of your choice.
+**Recommendation:** Choose **Cloudflare (option 3)** for privacy and speed. Options 4-5 (Quad9) are excellent for privacy with malware blocking. Avoid your ISP's DNS (option 1) — it defeats VPN privacy.
+
+### Compression Setting
 
 ```
 Do you want to use compression? It is not recommended since the VORACLE attack make use of it.
-Enable compression? &#91;y/n]: n
+Enable compression? [y/n]: n
 ```
 
-Enter "n", it's advised to have it disabled.
+**Recommendation:** Enter `n`. Compression is disabled by default for security — it's vulnerable to the VORACLE timing attack that can leak data even when encrypted.
+
+### Encryption Settings
 
 ```
-Customize encryption settings? &#91;y/n]: n
+Customize encryption settings? [y/n]: n
 ```
 
-Enter "n" to have the default encryption settings. Then press any key to let it install and configure the VPN server.
+**Recommendation:** Enter `n` to use the script's default, production-ready encryption settings. Modern defaults use AES-256-GCM which is both secure and performant.
 
-Once everything is installed it ask for few more questions to create a Client file. Then it will create a client file, which we will use to import into OpenVPN client to connect to OpenVPN server.
+Press Enter to proceed with installation. The script will now compile and configure your OpenVPN server (this may take 2-5 minutes).
+
+<Callout variant="note">
+The installation process handles certificate generation, key creation, and server configuration automatically. No manual setup required!
+</Callout>
+
+## Step 3: Create Your First VPN Client
+
+Once server installation completes, the script prompts you to create a client certificate. This generates the `.ovpn` file you'll use to connect.
+
+### Client Name
 
 ```
 Client Name: swiftionvpn
 ```
 
-Give the name of your choice.
+Choose a descriptive name for this client (e.g., "laptop", "phone", "home"). You can create additional clients later using the same script.
+
+### Password Protection
 
 ```
 Do you want to protect the configuration file with a password?
 (e.g. encrypt the private key with a password)
    1) Add a passwordless client
    2) Use a password for the client
-Select an option &#91;1-2]: 1
+Select an option [1-2]: 1
 ```
 
-It is suggested to set a password for the client. This the password we have to enter while connecting to our VPN server. Enter "1" and enter the password when it prompts.
+**Recommendation:** Choose **option 2 (Use a password)** for enhanced security. You'll enter this password each time you connect to the VPN, protecting your private key if the `.ovpn` file is lost or stolen.
 
-Once it is done. Client file will be created in your home directory for eg. `/home/username/swiftionvpn.ovpn`
+If you choose password protection, the script will prompt you to set a password — remember this for future connections!
 
-Now let's download the client file to our local machine. To do that we use SCP.
+Once complete, your client configuration file is ready in `/home/username/clientname.ovpn`.
 
-```
+## Step 4: Download the Client Configuration
+
+Download the `.ovpn` file to your local machine using SCP (Secure Copy):
+
+```bash
 scp username@ipaddress:/home/username/swiftionvpn.ovpn swiftionvpn.ovpn
 ```
 
-This will download the client file to current directory.
+Replace:
+- `username` — Your VPS login username
+- `ipaddress` — Your VPS public IP address
+- `swiftionvpn.ovpn` — The client name you created
 
-Now open OpenVPN client and import the client file and connect to our VPN server. when it prompt's credentials. Username is the client name you given and the password you set for that client name.
+The file will be saved to your current directory.
 
-Now you would have successfully connected to VPN tunnel and routing your traffic through secured encrypted tunnel.
+<Callout variant="tip" title="Securing the Config File">
+Treat your `.ovpn` file like a password. It contains your private key and server connection details. Store it in a secure location, and consider setting folder permissions: `chmod 600 swiftionvpn.ovpn`
+</Callout>
 
-In case you have any questions or an issue, feel free to post it in the comment box below. Hope I helped you today. Thank you.
+## Step 5: Connect to Your VPN
+
+### Installing OpenVPN Client
+
+Download and install the OpenVPN client for your operating system:
+- **Windows**: https://openvpn.net/download-open-vpn/
+- **macOS**: https://openvpn.net/download-open-vpn/ or `brew install openvpn`
+- **Linux**: `sudo apt install openvpn` (Debian/Ubuntu)
+- **iOS/Android**: Search "OpenVPN Connect" in your app store
+
+### Importing the Configuration
+
+1. Open OpenVPN client
+2. Select **"Import Profile"** or **"Add File"**
+3. Choose the `swiftionvpn.ovpn` file you downloaded
+4. The VPN connection will appear in your list
+
+### Connecting
+
+Click the connection to establish the tunnel. If you set a password, you'll be prompted to enter it (or your client name if passwordless).
+
+<Callout variant="note">
+You're now connected! All traffic routes through your encrypted VPN tunnel. Verify your new IP address at https://whatismyipaddress.com
+</Callout>
+
+You're now connected! All traffic routes through your encrypted VPN tunnel. Verify your new IP address at https://whatismyipaddress.com
+
+## Managing Additional Clients
+
+To add more VPN clients (phone, laptop, etc.), re-run the installation script:
+
+```bash
+sudo ./openvpn-install.sh
+```
+
+Select **"Add a new user"** and follow the prompts. This creates additional `.ovpn` files without reconfiguring the server.
+
+## Troubleshooting Common Issues
+
+<Callout variant="problem" title="Connection Refused">
+Ensure the VPS firewall allows traffic on your chosen port. Check with: `sudo ufw status` (if using UFW firewall).
+</Callout>
+
+<Callout variant="problem" title="Slow Connection Speed">
+Switch to UDP protocol if using TCP. UDP is significantly faster for most users.
+</Callout>
+
+<Callout variant="problem" title="DNS Leaks">
+Your ISP's DNS may bypass the tunnel. Use a DNS leak tester (https://www.dnsleaktest.com/) to verify. If leaking, restart the OpenVPN client or change DNS providers in server settings.
+</Callout>
+
+## Security Best Practices
+
+- **Firewall**: Only expose port 1194 (or your chosen port) to the internet
+- **Updates**: Keep your VPS updated: `sudo apt update && sudo apt upgrade`
+- **Monitor connections**: Run `sudo ./openvpn-install.sh` and select "Show active connections" to audit who's connected
+- **Revoke clients**: Re-run the script and select "Revoke a user" if a client is compromised
+
+## Conclusion
+
+You now have a fully functional, encrypted VPN server that you control. Enjoy secure, private browsing from anywhere in the world!

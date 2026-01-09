@@ -7,105 +7,171 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-This guide shows how to restore the stock Oxygen OS from any custom ROM in OnePlus 7 and latest OnePlus devices. This may work in 7 and below version of devices. But this worked 100% in my 7T device and this how I reverted back my device.
+import Callout from '@/components/Callout.astro'
 
-**Important:** Please read through the instructions at least once before actually following them, so as to avoid any problems due to any missed steps. Also take the backup of your data.
+This comprehensive guide walks you through the process of restoring the stock Oxygen OS from any custom ROM on OnePlus 7 and newer devices. While this method may work on OnePlus 7 and earlier versions, it has been verified to work flawlessly on the OnePlus 7T.
+
+<Callout variant="warning">
+**Important:** Please read through the entire guide at least once before following the steps to avoid issues from missed instructions. Additionally, **backup all your data** before proceeding, as this process will wipe your device.
+</Callout>
+
+## Requirements
+
+Before you begin, make sure you have the following:
+
+- **ADB and Fastboot** - If not already installed, follow [this setup guide](https://wiki.lineageos.org/adb_fastboot_guide.html)
+- **Oxygen OS ROM** - Download from [OnePlus Support](https://www.oneplus.in/support) (select your device model)
+- **payload-dumper-go** - Download from [GitHub Releases](https://github.com/ssut/payload-dumper-go/releases)
+- **Windows PC** - This guide uses Windows commands
+- **USB Cable** - To connect your OnePlus device
 
 ## Preparation
 
-Before we proceed, let's get all the required files downloaded.
+### Step 1: Organize Files
 
-- [Oxygen OS](https://www.oneplus.in/support)
-- [payload-dumper-go](https://github.com/ssut/payload-dumper-go/releases)
+1. Create a folder named `android` in your C: drive (`C:\android`)
+2. Download the Oxygen OS ROM file and place it in the `android` folder
+3. Extract the `payload-dumper-go` zip file
+4. Move `payload-dumper-go.exe` to the `C:\android` folder
 
-Hope that adb and fastboot is already installed. If it is not installed, follow [this guide](https://wiki.lineageos.org/adb_fastboot_guide.html) to install it in your computer.
+### Step 2: Extract ROM Files
 
-Let's create a folder named "android" in C: drive and move the downloaded files in this folder.
+1. Open PowerShell or Command Prompt and navigate to your android folder:
+   ```
+   cd C:\android
+   ```
 
-Now extract the payload-dumper-go zip file and move the `payload-dumper-go.exe` into the `android` folder, where the Oxygen OS zip file is available.
+2. Extract the ROM using payload-dumper-go:
+   ```
+   .\payload-dumper-go.exe .\OnePlusXXXX_...._XXXX.zip
+   ```
+   *(Replace `OnePlusXXXX_...._XXXX.zip` with your actual ROM filename)*
 
-Now open the cmd/powershell and change the directory to `c:/android`
+3. Wait for the extraction to complete. You'll see a new folder named `extracted_XXXXXXXX_XXXXX`
 
-Use the payload-dumper to extract the image files from Oxygen OS. Run the command below.
+4. Navigate to the extracted folder:
+   ```
+   cd extracted_XXXXXXXX_XXXXX
+   ```
+   *(Replace with your actual extracted folder name)*
 
-`PS C:/android> .\payload-dumper-go.exe .\OnePlusXXXX_...._XXXX.zip`
+## Flashing Process
 
-Change the `OnePlusXXXX\_....\_XXXX.zip` to match your Oxygen OS zip file name.
+<Callout variant="warning">
+**Warning:** The flashing process will erase all data on your device. Ensure you have backed up everything important before proceeding.
+</Callout>
 
-After the extracting process is done. We could find a new folder `extracted_XXXXXXXX_XXXXX`.
+### Step 1: Boot into Fastboot Mode
 
-Now change the command line to newly created folder.
+1. Power off your OnePlus device completely
+2. Hold `Volume Up` + `Volume Down` + `Power` simultaneously until the fastboot menu appears
+3. In your PowerShell window, verify the device is detected:
+   ```
+   fastboot devices
+   ```
+   You should see your device listed with a serial number
 
-`PS C:/android> cd extracted_XXXXXXXX_XXXXX`
+### Step 2: Flash Boot and Recovery
 
-Change the directory name `extracted_XXXXXXXX_XXXXX` with your matching name.
+1. Flash the boot and recovery images:
+   ```
+   fastboot flash --slot=all boot boot.img
+   fastboot flash --slot=all recovery recovery.img
+   ```
 
-## Flashing
+2. Reboot into fastbootd mode:
+   ```
+   fastboot reboot fastboot
+   ```
+   Wait a few seconds for the device to reboot into fastbootd mode.
 
-With the device powered off, hold `Volume Up` + `Volume Down` + `Power`
+### Step 3: Complete Flash Process
 
-Once the device is in fastboot mode, verify your PC finds it by typing
+1. Start by wiping the device and then run all the flashing commands in sequence. This may take several minutes:
 
-`fastboot devices`
+   ```
+   fastboot -w
+   fastboot flash --slot=all abl abl.img
+   fastboot flash --slot=all aop aop.img
+   fastboot flash --slot=all bluetooth bluetooth.img
+   fastboot flash --slot=all boot boot.img
+   fastboot flash --slot=all cmnlib64 cmnlib64.img
+   fastboot flash --slot=all cmnlib cmnlib.img
+   fastboot flash --slot=all devcfg devcfg.img
+   fastboot flash --slot=all dsp dsp.img
+   fastboot flash --slot=all dtbo dtbo.img
+   fastboot flash --slot=all hyp hyp.img
+   fastboot flash --slot=all imagefv imagefv.img
+   fastboot flash --slot=all keymaster keymaster.img
+   fastboot flash --slot=all LOGO LOGO.img
+   fastboot flash --slot=all modem modem.img
+   fastboot flash --slot=all multiimgoem multiimgoem.img
+   fastboot flash --slot=all odm odm.img
+   fastboot flash --slot=all oem_stanvbk oem_stanvbk.img
+   fastboot flash --slot=all opproduct opproduct.img
+   fastboot flash --slot=all qupfw qupfw.img
+   fastboot flash --slot=all recovery recovery.img
+   fastboot flash --slot=all storsec storsec.img
+   fastboot flash --slot=all tz tz.img
+   fastboot flash --slot=all uefisecapp uefisecapp.img
+   fastboot flash --slot=all vbmeta vbmeta.img
+   fastboot flash --slot=all vbmeta_system vbmeta_system.img
+   fastboot flash --slot=all xbl_config xbl_config.img
+   fastboot flash --slot=all xbl xbl.img
+   fastboot reboot fastboot
+   fastboot flash --slot=all system system.img
+   fastboot flash --slot=all system_ext system_ext.img
+   fastboot flash --slot=all vendor vendor.img
+   fastboot flash --slot=all product product.img
+   ```
 
-Now flash the stock boot and recovery images
+<Callout variant="note">
+The flashing process may take 10-15 minutes. Do not disconnect your device or interrupt the process. Wait for all commands to complete successfully.
+</Callout>
 
-`fastboot flash --slot=all boot boot.img
-fastboot flash --slot=all recovery recovery.img`
+## Post-Flash Steps
 
-Then reboot system into fastbootd mode
+### Option 1: Reboot Device (Recommended)
 
-`fastboot reboot fastboot`
-
-Now let's start the flashing by wiping the device first.
-
+If you want to keep the bootloader unlocked:
 ```
-fastboot -w
-fastboot flash --slot=all abl abl.img
-fastboot flash --slot=all aop aop.img
-fastboot flash --slot=all bluetooth bluetooth.img
-fastboot flash --slot=all boot boot.img
-fastboot flash --slot=all cmnlib64 cmnlib64.img
-fastboot flash --slot=all cmnlib cmnlib.img
-fastboot flash --slot=all devcfg devcfg.img
-fastboot flash --slot=all dsp dsp.img
-fastboot flash --slot=all dtbo dtbo.img
-fastboot flash --slot=all hyp hyp.img
-fastboot flash --slot=all imagefv imagefv.img
-fastboot flash --slot=all keymaster keymaster.img
-fastboot flash --slot=all LOGO LOGO.img
-fastboot flash --slot=all modem modem.img
-fastboot flash --slot=all multiimgoem multiimgoem.img
-fastboot flash --slot=all odm odm.img
-fastboot flash --slot=all oem_stanvbk oem_stanvbk.img
-fastboot flash --slot=all opproduct opproduct.img
-fastboot flash --slot=all qupfw qupfw.img
-fastboot flash --slot=all recovery recovery.img
-fastboot flash --slot=all storsec storsec.img
-fastboot flash --slot=all tz tz.img
-fastboot flash --slot=all uefisecapp uefisecapp.img
-fastboot flash --slot=all vbmeta vbmeta.img
-fastboot flash --slot=all vbmeta_system vbmeta_system.img
-fastboot flash --slot=all xbl_config xbl_config.img
-fastboot flash --slot=all xbl xbl.img
-fastboot reboot fastboot
-fastboot flash --slot=all system system.img
-fastboot flash --slot=all system_ext system_ext.img
-fastboot flash --slot=all vendor vendor.img
-fastboot flash --slot=all product product.img
+fastboot reboot
 ```
 
-Now the flashing process is done. If you wanted to lock the bootloader follow the below commands else reboot the device by entering the command `fastboot reboot`.
+Your device will boot into the stock Oxygen OS with a fresh installation.
 
-To lock the bootloader.
+### Option 2: Lock the Bootloader
 
-```
-fastboot reboot bootloader
-fastboot oem lock
-```
+If you want to restore the bootloader lock:
 
-Now follow the onscreen steps to complete the lock process. Once it is done enter the command `fastboot reboot` to boot into the phone.
+1. Reboot to bootloader:
+   ```
+   fastboot reboot bootloader
+   ```
 
-Hope this guide helped you to restore the stock Oxygen OS in your device.
+2. Lock the bootloader:
+   ```
+   fastboot oem lock
+   ```
 
-You can support by buying a coffee ☕️ here - https://www.buymeacoffee.com/vinothvkr
+3. Follow the on-screen prompts on your device to confirm the lock
+
+4. After the lock completes, reboot:
+   ```
+   fastboot reboot
+   ```
+
+## Troubleshooting
+
+- **Device not detected**: Ensure USB debugging is enabled and try a different USB port
+- **Flashing errors**: Make sure all image files are in the correct directory
+- **Slow flashing**: This is normal; do not interrupt the process
+- **Device stuck**: Hold the power button for 10 seconds to force restart
+
+## Conclusion
+
+Congratulations! You have successfully restored the stock Oxygen OS on your OnePlus device. Your phone should now run the official Oxygen OS with a clean slate. If you encounter any issues, please check the troubleshooting section or consult the OnePlus community forums.
+
+---
+
+If this guide helped you, consider supporting my work by [buying me a coffee](https://www.buymeacoffee.com/vinothvkr) ☕
