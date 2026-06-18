@@ -1,0 +1,31 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import { SITE } from "@/consts"
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout crumbs={[{ label: "About", href: "/about" }]}>
+  <MetaPage slot="head" title="About" />
+  <prose-content>
+    <h1>{SITE.title}</h1>
+    <p class="mt-0">
+      Senior Software Engineer and Full-Stack Developer.
+    </p>
+    <p>
+      I work primarily with .NET on the backend and Angular and React on the frontend, building systems that are practical, scalable, and thoughtfully designed.
+      Over the years, I've learned that good software isn't just about writing code—it's about understanding problems, making trade-offs, and continuously improving how things are built.
+    </p>
+    <p>
+      I'm naturally curious and enjoy exploring new technologies, tools, and ideas beyond my day-to-day work.
+      A lot of that exploration happens in my home lab, where I experiment, break things, rebuild them, and learn by doing.
+      It's where theory meets practice—and where I have the most fun.
+    </p>
+    <p>
+      This blog is a place for me to share what I'm learning along the way: technical insights, experiments, and lessons from real-world development.
+      If you're someone who enjoys understanding how things work under the hood, I hope you'll find something here that's useful or inspiring.
+    </p>
+    <p>
+      Thanks for stopping by.
+    </p>
+  </prose-content>
+</Layout>

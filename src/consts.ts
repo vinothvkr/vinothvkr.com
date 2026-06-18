@@ -5,8 +5,8 @@ import RSS from "@/assets/icons/rss.svg"
 import Twitter from "@/assets/icons/twitter.svg"
 
 export const SITE = {
-  title: "astro-erudite",
-  description: "An opinionated, unstyled blogging template built with Astro.",
+  title: "Vinoth Kumar",
+  description: "Website of Vinoth Kumar Rajendran - Software Engineer and Tech Enthusiast.",
   locale: "en-US",
   dir: "ltr",
   defaultPageImage: "/static/opengraph-image.png",
@@ -15,13 +15,13 @@ export const SITE = {
 
 export const NAVIGATION = [
   { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/authors", label: "Authors" },
+  // { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
 ]
 
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
-  { href: "https://github.com/jktrn", label: "GitHub", icon: GitHub },
-  { href: "https://twitter.com/enscrbe", label: "Twitter", icon: Twitter },
-  { href: "mailto:jason@enscribe.dev", label: "Email", icon: Email },
+  { href: "https://github.com/vinothvkr", label: "GitHub", icon: GitHub },
+  { href: "https://twitter.com/_vinothvkr", label: "Twitter", icon: Twitter },
+  { href: "mailto:vinothvkr@hotmail.com", label: "Email", icon: Email },
   { href: "/rss.xml", label: "RSS", icon: RSS },
 ]

@@ -1,31 +1,22 @@
 ---
 import MetaPage from "@/components/MetaPage.astro"
+import { SITE } from "@/consts"
 import Layout from "@/layouts/Layout.astro"
 ---
 
 <Layout>
   <MetaPage slot="head" />
   <dictionary-entry>
-    <h1>er·u·dite</h1>
-    <etymology-span>
-      <ipa-span>/ˈer(y)əˌdīt/</ipa-span>
-      adj. [L. <i>ēruditus</i>, instructed, pp. of <i>ērudīre</i> to instruct,
-      polish, lit. to free from roughness, f. ē- out + <i>rudis</i> rough,
-      untrained]
-    </etymology-span>
-    <ol>
-      <li>
-        having or showing deep, wide-ranging knowledge acquired through study;
-        learned (<i>an erudite scholar</i>).
-      </li>
-      <li>
-        (of writing, speech, or argument) reflecting such knowledge; scholarly (<i
-          >an erudite footnote</i
-        >).
-      </li>
-    </ol>
+    <h1>{SITE.title}</h1>
+    <h2>
+      Senior Software Engineer and Full-Stack Developer.
+    </h2>
+    <p>
+      I share technical insights, experiments, and lessons from real-world development. 
+      <a href="/about">Learn more about me.</a>
+    </p>
     <hr>
-    <prose-content>
+    <!-- <prose-content>
       <p>
         astro-erudite is
         <a href="https://enscribe.dev" target="_blank" rel="noopener noreferrer"
@@ -48,7 +39,7 @@ import Layout from "@/layouts/Layout.astro"
         repository. To learn more about why this template exists, read this blog
         post: <a href="/blog/introducing-v2">Introducing astro-erudite v2</a>.
       </p>
-    </prose-content>
+    </prose-content> -->
   </dictionary-entry>
 </Layout>
 
@@ -67,6 +58,14 @@ import Layout from "@/layouts/Layout.astro"
     }
 
     h1 {
+      font-size: var(--step-3);
+      line-height: calc(var(--leading-offset) + 1em);
+      font-weight: var(--font-weight-medium);
+      color: var(--foreground);
+      margin-block-end: var(--space-2xs);
+    }
+
+    h2 {
       font-size: var(--step-2);
       line-height: calc(var(--leading-offset) + 1em);
       font-weight: var(--font-weight-medium);
