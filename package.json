@@ -28,6 +28,25 @@
     "temml": "^0.13.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16"
+    "@biomejs/biome": "^2.4.16",
+    "prettier": "^3.8.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro-organize-imports": "^0.4.12"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "plugins": [
+      "prettier-plugin-astro",
+      "prettier-plugin-astro-organize-imports"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
   }
 }

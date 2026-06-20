@@ -1,107 +1,153 @@
 ---
-import MetaPage from "@/components/MetaPage.astro"
-import { SITE } from "@/consts"
-import Layout from "@/layouts/Layout.astro"
+import MetaPage from '@/components/MetaPage.astro'
+import { SITE, SOCIALS } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout>
   <MetaPage slot="head" />
-  <dictionary-entry>
-    <h1>{SITE.title}</h1>
-    <h2>
-      Senior Software Engineer and Full-Stack Developer.
-    </h2>
-    <p>
-      I share technical insights, experiments, and lessons from real-world development. 
-      <a href="/about">Learn more about me.</a>
-    </p>
-    <hr>
-    <!-- <prose-content>
-      <p>
-        astro-erudite is
-        <a href="https://enscribe.dev" target="_blank" rel="noopener noreferrer"
-          >enscribe</a
-        >'s opinionated, unstyled static blogging template built with
-        <a href="https://astro.build" target="_blank" rel="noopener noreferrer"
-          >Astro</a
-        >
-        and native CSS. astro-erudite uses no UI or CSS framework and contains
-        minimal dependencies.
-      </p>
-      <p>
-        To use this template, check out the
-        <a
-          href="https://github.com/jktrn/astro-erudite"
-          target="_blank"
-          rel="noopener noreferrer"
-          >GitHub</a
-        >
-        repository. To learn more about why this template exists, read this blog
-        post: <a href="/blog/introducing-v2">Introducing astro-erudite v2</a>.
-      </p>
-    </prose-content> -->
-  </dictionary-entry>
+  <hero-section>
+    <profile-card>
+      <profile-image>
+        <img
+          src="https://avatars.githubusercontent.com/u/9390245"
+          alt={SITE.title}
+        />
+      </profile-image>
+      <profile-info>
+        <h1>{SITE.title}</h1>
+        <p class="tagline">Software Engineer and Tech Enthusiast</p>
+        <tagline-text>
+          <h2>Building systems and sharing <em>insights</em> from the craft</h2>
+        </tagline-text>
+        <description>
+          <p>
+            I work on full-stack development, infrastructure, and open-source
+            projects. This site is where I document lessons, experiments, and
+            practical guides from real-world development.
+          </p>
+        </description>
+        <social-links>
+          {
+            SOCIALS.map((social) => (
+              <a href={social.href} title={social.label} class="social-link">
+                <social.icon />
+              </a>
+            ))
+          }
+        </social-links>
+      </profile-info>
+    </profile-card>
+  </hero-section>
 </Layout>
 
 <style>
-  dictionary-entry {
+  hero-section {
     display: block;
-    font-size: var(--step-0);
-    color: var(--muted-foreground);
+    margin-block-start: var(--space-l);
+  }
 
-    @media (width >= 64rem) {
-      margin-block-start: -0.2em;
-    }
+  profile-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-l);
+    align-items: start;
 
-    ipa-span {
-      opacity: 0.6;
+    @media (width < 48rem) {
+      grid-template-columns: 1fr;
+      gap: var(--space-m);
     }
+  }
+
+  profile-image {
+    display: flex;
+    flex-shrink: 0;
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border);
+
+      @media (width < 48rem) {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
 
     h1 {
       font-size: var(--step-3);
-      line-height: calc(var(--leading-offset) + 1em);
       font-weight: var(--font-weight-medium);
       color: var(--foreground);
-      margin-block-end: var(--space-2xs);
+      margin: 0;
+      line-height: 1.2;
     }
 
+    .tagline {
+      font-size: var(--step-0);
+      color: var(--muted-foreground);
+      margin: 0;
+    }
+  }
+
+  tagline-text {
     h2 {
       font-size: var(--step-2);
-      line-height: calc(var(--leading-offset) + 1em);
       font-weight: var(--font-weight-medium);
       color: var(--foreground);
-      margin-block-end: var(--space-2xs);
-    }
+      margin: 0;
+      line-height: 1.3;
 
-    ol {
-      margin-block-start: var(--space-xs);
-      list-style: none;
-
-      li {
-        padding-inline-start: 1em;
-        text-indent: -1em;
-
-        &::before {
-          content: counter(list-item);
-          display: inline-block;
-          inline-size: 1em;
-          text-indent: 0;
-          font-weight: var(--font-weight-medium);
-        }
-
-        + li {
-          margin-block-start: var(--space-3xs);
-        }
+      em {
+        font-style: italic;
+        font-weight: var(--font-weight-medium);
       }
     }
+  }
 
-    hr {
-      margin-block: var(--space-m);
-      border-block-start: 2px solid var(--border);
+  description {
+    p {
+      font-size: var(--step-0);
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      margin: 0;
     }
+  }
 
-    prose-content {
-      margin-block-start: var(--space-xs);
+  social-links {
+    display: flex;
+    gap: var(--space-s);
+    margin-block-start: var(--space-xs);
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--accent-bg);
+      color: var(--accent-foreground);
+      transition: all 0.2s ease;
+      text-decoration: none;
+
+      &:hover {
+        background-color: var(--accent-foreground);
+        color: var(--accent-bg);
+        transform: translateY(-2px);
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 </style>
