@@ -145,23 +145,6 @@ sudo tailscale set --accept-routes
   implications.
 </Callout>
 
-## Install Corepack and Enable Yarn
-
-[Corepack](https://nodejs.org/api/corepack.html) is a Node.js feature that manages package managers like Yarn and PNPM, ensuring version consistency across projects.
-
-```bash
-# Install Corepack globally
-sudo npm install -g corepack
-
-# Enable Yarn support
-corepack enable
-```
-
-<Callout type="tip">
-  Corepack is the recommended way to manage Yarn and PNPM versions. It
-  eliminates version conflicts across different projects.
-</Callout>
-
 ## Install RPM Fusion
 
 [RPM Fusion](https://rpmfusion.org/) provides additional software repositories with packages that cannot be included in Fedora due to licensing or patent restrictions. This includes multimedia codecs, drivers, and other proprietary software.
@@ -189,18 +172,12 @@ sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=Package
 Hardware video acceleration significantly improves video playback performance and reduces CPU usage by offloading decoding to your GPU:
 
 ```bash
+# Common libraries for all systems
+sudo dnf install ffmpeg-libs libva libva-utils
+
 # For Intel GPUs
 sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
 sudo dnf install libva-intel-driver
-
-# Common libraries for all systems
-sudo dnf install ffmpeg-libs libva libva-utils
-```
-
-**Verify Hardware Acceleration:**
-
-```bash
-vainfo
 ```
 
 <Callout type="tip">
