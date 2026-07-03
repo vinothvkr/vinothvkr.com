@@ -7,8 +7,6 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 Setting up your own VPN (Virtual Private Network) server provides secure, encrypted access to your network from anywhere. This step-by-step guide will walk you through installing and configuring OpenVPN on a Linux server in just minutes using an automated setup script.
@@ -22,9 +20,9 @@ You'll need the following to get started:
 - **SSH access** to your server with root or sudo privileges
 - **curl** installed on your server (usually pre-installed)
 
-<Callout variant="tip" title="Why Your Own VPN?">
+:::tip[Why Your Own VPN?]
 Running your own VPN gives you complete control over encryption, logging policies, and server location — unlike commercial VPN providers where you must trust the operator.
-</Callout>
+:::
 
 ## The Setup Process
 
@@ -62,9 +60,9 @@ IP address: XXX.XX.XX.XXX
 
 The script auto-detects your VPS's public IP address. **Verify this is correct** — this IP is how clients will connect to your VPN server.
 
-<Callout variant="warning">
+:::warning
 If you see a private IP (e.g., 192.168.x.x or 10.x.x.x), your VPS may not have a public IP. Contact your provider or check your network configuration.
-</Callout>
+:::
 
 ### IPv6 Support
 
@@ -85,13 +83,14 @@ Port choice [1-3]: 1
 ```
 
 **Options explained:**
+
 - **Default (1194)**: Standard OpenVPN port; works in most networks but may be blocked by restrictive firewalls
 - **Custom**: Choose your own port (e.g., 443 for HTTPS-like obfuscation)
 - **Random**: Generate a random high port; better obfuscation from ISPs
 
-<Callout variant="tip">
+:::tip
 If you're behind a restrictive corporate firewall, port 443 (HTTPS) often gets better network access than 1194.
-</Callout>
+:::
 
 ### Protocol Selection
 
@@ -146,9 +145,9 @@ Customize encryption settings? [y/n]: n
 
 Press Enter to proceed with installation. The script will now compile and configure your OpenVPN server (this may take 2-5 minutes).
 
-<Callout variant="note">
+:::note
 The installation process handles certificate generation, key creation, and server configuration automatically. No manual setup required!
-</Callout>
+:::
 
 ## Step 3: Create Your First VPN Client
 
@@ -187,21 +186,23 @@ scp username@ipaddress:/home/username/swiftionvpn.ovpn swiftionvpn.ovpn
 ```
 
 Replace:
+
 - `username` — Your VPS login username
 - `ipaddress` — Your VPS public IP address
 - `swiftionvpn.ovpn` — The client name you created
 
 The file will be saved to your current directory.
 
-<Callout variant="tip" title="Securing the Config File">
+:::tip[Securing the Config File]
 Treat your `.ovpn` file like a password. It contains your private key and server connection details. Store it in a secure location, and consider setting folder permissions: `chmod 600 swiftionvpn.ovpn`
-</Callout>
+:::
 
 ## Step 5: Connect to Your VPN
 
 ### Installing OpenVPN Client
 
 Download and install the OpenVPN client for your operating system:
+
 - **Windows**: https://openvpn.net/download-open-vpn/
 - **macOS**: https://openvpn.net/download-open-vpn/ or `brew install openvpn`
 - **Linux**: `sudo apt install openvpn` (Debian/Ubuntu)
@@ -218,9 +219,9 @@ Download and install the OpenVPN client for your operating system:
 
 Click the connection to establish the tunnel. If you set a password, you'll be prompted to enter it (or your client name if passwordless).
 
-<Callout variant="note">
+:::note
 You're now connected! All traffic routes through your encrypted VPN tunnel. Verify your new IP address at https://whatismyipaddress.com
-</Callout>
+:::
 
 You're now connected! All traffic routes through your encrypted VPN tunnel. Verify your new IP address at https://whatismyipaddress.com
 
@@ -236,17 +237,17 @@ Select **"Add a new user"** and follow the prompts. This creates additional `.ov
 
 ## Troubleshooting Common Issues
 
-<Callout variant="problem" title="Connection Refused">
+:::problem[Connection Refused]
 Ensure the VPS firewall allows traffic on your chosen port. Check with: `sudo ufw status` (if using UFW firewall).
-</Callout>
+:::
 
-<Callout variant="problem" title="Slow Connection Speed">
+:::problem[Slow Connection Speed]
 Switch to UDP protocol if using TCP. UDP is significantly faster for most users.
-</Callout>
+:::
 
-<Callout variant="problem" title="DNS Leaks">
+:::problem[DNS Leaks]
 Your ISP's DNS may bypass the tunnel. Use a DNS leak tester (https://www.dnsleaktest.com/) to verify. If leaking, restart the OpenVPN client or change DNS providers in server settings.
-</Callout>
+:::
 
 ## Security Best Practices
 

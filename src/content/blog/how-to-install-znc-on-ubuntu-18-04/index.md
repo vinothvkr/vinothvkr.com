@@ -7,8 +7,6 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 **ZNC** is an IRC (Internet Relay Chat) bouncer that acts as an intermediary between your IRC client and IRC networks. Key benefits include:
@@ -20,9 +18,9 @@ import Callout from '@/components/Callout.astro';
 
 This guide sets up ZNC as a systemd daemon on Ubuntu 18.04 for production use.
 
-<Callout variant="note">
+:::note
 **What is an IRC Bouncer?** A bouncer stays connected to IRC networks 24/7, storing messages offline. When your client connects, the bouncer relays everything you missed while away.
-</Callout>
+:::
 
 ## Prerequisites
 
@@ -57,6 +55,7 @@ sudo useradd --create-home -d /var/lib/znc --system --shell /sbin/nologin --comm
 ```
 
 This command:
+
 - Creates a home directory at `/var/lib/znc`
 - Sets it as a system account (no login shell)
 - Creates a dedicated group for the user
@@ -79,12 +78,13 @@ The script will guide you through setup with prompts. Here's what each section m
 [ ?? ] Listen using both IPv4 and IPv6 (yes/no) [yes]: yes
 ```
 
-<Callout variant="tip">
+:::tip
 **Port Selection:**
+
 - **6697** — Standard secure port for IRC bouncers
 - **6667** — Plain unencrypted port (less secure)
 - Choose **yes** for SSL for encrypted connections
-</Callout>
+  :::
 
 The script will generate an SSL certificate automatically.
 
@@ -100,9 +100,9 @@ The script will generate an SSL certificate automatically.
 [ ?? ] Real name [Got ZNC?]: Your Real Name
 ```
 
-<Callout variant="warning">
+:::warning
 Use a **strong password** — this account has full control over your ZNC server. Consider using a password manager to generate and store it securely.
-</Callout>
+:::
 
 ### Network Configuration
 
@@ -118,9 +118,9 @@ Use a **strong password** — this account has full control over your ZNC server
 [ ?? ] Initial channels: #ubuntu,#linux,#help
 ```
 
-<Callout variant="note">
+:::note
 Freenode has merged with Libera.Chat. Update the server to `irc.libera.chat` if setting up for current networks.
-</Callout>
+:::
 
 ### Finish Configuration
 
@@ -201,9 +201,9 @@ https://your_server_ip:6697/
 
 Login with the admin credentials you created earlier.
 
-<Callout variant="warning">
+:::warning
 Self-signed SSL certificate: Your browser will show a security warning since ZNC generates self-signed certificates. Click "Advanced" and proceed — this is expected.
-</Callout>
+:::
 
 ### Via IRC Client
 
@@ -217,6 +217,7 @@ Nick: yournick
 ```
 
 Example:
+
 ```
 Server: 192.168.1.100
 Port: 6697

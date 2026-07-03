@@ -7,15 +7,13 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 This guide covers essential Linux commands for user and group management, which are fundamental for system administration and security. Whether you're managing a single server or multiple systems, these commands will help you maintain user accounts efficiently.
 
-<Callout variant="note">
+:::note
 Most of these commands require **sudo** (superuser) privileges. If you're not in the sudoers group, ask your system administrator to grant access before proceeding.
-</Callout>
+:::
 
 ## User Management
 
@@ -38,6 +36,7 @@ sudo adduser username
 ```
 
 This command will prompt you to:
+
 - Set a password
 - Confirm the password
 - Enter user information (name, room number, phone, etc.) — leave blank if not needed
@@ -52,9 +51,9 @@ sudo usermod -aG sudo username
 
 The `-aG` flag means: **-a** (append) and **-G** (groups). The user is added to the sudo group without removing from other groups.
 
-<Callout variant="warning" title="Sudo Access">
+:::warning[Sudo Access]
 Only add trusted users to the sudo group, as they gain root-level access. Always verify before granting sudo privileges.
-</Callout>
+:::
 
 ### Delete a User
 
@@ -72,9 +71,9 @@ Completely remove a user and all their files:
 sudo deluser --remove-home username
 ```
 
-<Callout variant="danger" title="Permanent Deletion">
+:::danger[Permanent Deletion]
 This command permanently deletes the user's home directory and all files. There is no undo — ensure you have backups before proceeding.
-</Callout>
+:::
 
 ## Group Management
 
@@ -118,12 +117,14 @@ sudo chgrp -R groupname directoryname
 
 The `-R` flag applies the change recursively to all files and subdirectories.
 
-<Callout variant="tip">
+:::tip
 For example, to give the `www-data` group ownership of a web directory:
+
 ```bash
 sudo chgrp -R www-data /var/www/mysite
 ```
-</Callout>
+
+:::
 
 ### Change File Ownership
 
@@ -134,6 +135,7 @@ sudo chown -R username:groupname directoryname
 ```
 
 Example:
+
 ```bash
 sudo chown -R ubuntu:ubuntu /home/ubuntu/myproject
 ```

@@ -58,7 +58,9 @@ These chips handle heavy USB and display traffic and can develop local hotspots 
 
 ## Step-by-step: install copper heatsinks
 
-> Warning: opening the dock can void your warranty and risks damaging components. If you are not comfortable with small electronics, stop here.
+:::warning
+opening the dock can void your warranty and risks damaging components. If you are not comfortable with small electronics, stop here.
+:::
 
 1. Power off everything and disconnect all cables.
 2. Unscrew the dock bottom screws (keep them organized) and carefully open the enclosure using plastic pry tools.

@@ -7,19 +7,18 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 **UFW (Uncomplicated Firewall)** is a user-friendly interface to manage iptables firewall rules in Ubuntu and Debian-based systems. It simplifies the process of allowing and denying network traffic without complex command syntax.
 
-<Callout variant="note">
+:::note
 UFW is installed by default on most Ubuntu installations (18.04+), but it comes disabled. This prevents accidental lockouts during initial server setup.
-</Callout>
+:::
 
 ## Prerequisites
 
 You'll need:
+
 - Root or sudo access on your Ubuntu server
 - SSH connection for remote management (highly recommended)
 - Basic understanding of network ports
@@ -43,9 +42,9 @@ sudo ufw status
 
 Output will show `Status: inactive` on first run. No rules are loaded yet.
 
-<Callout variant="warning" title="Critical: Secure SSH First">
+:::warning[Critical: Secure SSH First]
 Before enabling the firewall, you **must** add a rule allowing SSH. If you block SSH while connected remotely, you'll lock yourself out and lose access to your server!
-</Callout>
+:::
 
 ## Step 2: Allow SSH Access (CRITICAL)
 
@@ -69,9 +68,9 @@ sudo ufw allow 2222
 
 Replace `2222` with your actual SSH port.
 
-<Callout variant="tip" title="Why Allow SSH First?">
+:::tip[Why Allow SSH First?]
 UFW defaults to **deny all incoming connections**. Once enabled, only explicitly allowed ports accept traffic. Without an SSH rule, you lose remote access immediately.
-</Callout>
+:::
 
 ## Step 3: Enable the Firewall
 
@@ -82,15 +81,16 @@ sudo ufw enable
 ```
 
 You'll see a warning:
+
 ```
 Command may disrupt existing ssh connections. Proceed with operation (y|n)?
 ```
 
 Enter `y` — you've already whitelisted SSH, so your connection will remain active.
 
-<Callout variant="note">
+:::note
 UFW is now active! It denies all incoming connections except those you explicitly allow.
-</Callout>
+:::
 
 ## Step 4: Add Rules for Your Services
 
@@ -152,6 +152,7 @@ sudo ufw status
 ```
 
 Output example:
+
 ```
 Status: active
 
@@ -194,9 +195,9 @@ Or delete by rule number (from `ufw status numbered`):
 sudo ufw delete 3
 ```
 
-<Callout variant="warning">
+:::warning
 Always verify the rule number before deletion. Removing the wrong rule could expose your server.
-</Callout>
+:::
 
 ## Advanced Usage
 
@@ -225,63 +226,70 @@ sudo ufw enable         # Re-enable with existing rules
 
 ### Reset to Defaults
 
-<Callout variant="danger" title="Destructive Operation">
+:::danger[Destructive Operation]
 This removes all rules and disables UFW. Use only for troubleshooting:
+
 ```bash
 sudo ufw reset
 ```
-</Callout>
+
+:::
 
 ## Common Service Ports Reference
 
-| Service | Port | Protocol | UFW Command |
-|---------|------|----------|-------------|
-| SSH | 22 | TCP | `ufw allow ssh` |
-| HTTP | 80 | TCP | `ufw allow http` |
-| HTTPS | 443 | TCP | `ufw allow https` |
-| DNS | 53 | TCP/UDP | `ufw allow dns` |
-| SMTP | 25 | TCP | `ufw allow smtp` |
-| MySQL | 3306 | TCP | `ufw allow 3306` |
-| PostgreSQL | 5432 | TCP | `ufw allow 5432` |
-| MongoDB | 27017 | TCP | `ufw allow 27017` |
-| Redis | 6379 | TCP | `ufw allow 6379` |
-| OpenVPN | 1194 | UDP | `ufw allow 1194/udp` |
+| Service    | Port  | Protocol | UFW Command          |
+| ---------- | ----- | -------- | -------------------- |
+| SSH        | 22    | TCP      | `ufw allow ssh`      |
+| HTTP       | 80    | TCP      | `ufw allow http`     |
+| HTTPS      | 443   | TCP      | `ufw allow https`    |
+| DNS        | 53    | TCP/UDP  | `ufw allow dns`      |
+| SMTP       | 25    | TCP      | `ufw allow smtp`     |
+| MySQL      | 3306  | TCP      | `ufw allow 3306`     |
+| PostgreSQL | 5432  | TCP      | `ufw allow 5432`     |
+| MongoDB    | 27017 | TCP      | `ufw allow 27017`    |
+| Redis      | 6379  | TCP      | `ufw allow 6379`     |
+| OpenVPN    | 1194  | UDP      | `ufw allow 1194/udp` |
 
 ## Troubleshooting
 
-<Callout variant="problem" title="Locked Out of SSH">
+:::problem[Locked Out of SSH]
 If you can't SSH after enabling UFW:
+
 1. Use the hosting provider's console/IPMI to access the server
 2. Run: `sudo ufw allow 22`
 3. Reconnect via SSH
 
 Always allow SSH **before** enabling the firewall!
-</Callout>
+:::
 
-<Callout variant="problem" title="Application Not Accessible">
+:::problem[Application Not Accessible]
 If your web server shows "connection refused":
+
 1. Verify the application is running: `sudo netstat -tlnp | grep LISTEN`
 2. Check if port is allowed: `sudo ufw status | grep PORT_NUMBER`
 3. Add rule if missing: `sudo ufw allow PORT_NUMBER`
-</Callout>
+   :::
 
-<Callout variant="problem" title="UFW Not Starting After Reboot">
+:::problem[UFW Not Starting After Reboot]
 Some systems disable UFW on boot. Make it persistent:
+
 ```bash
 sudo systemctl enable ufw
 sudo systemctl start ufw
 ```
-</Callout>
+
+:::
 
 ## Security Best Practices
 
-<Callout variant="tip" title="Security Hardening">
+:::tip[Security Hardening]
+
 - **Principle of Least Privilege**: Only allow ports your services actually need
 - **Use Service Names**: `ufw allow ssh` is clearer than `ufw allow 22`
 - **Document Rules**: Comment your UFW configuration for future reference
 - **Review Regularly**: Periodically run `sudo ufw status` to audit active rules
 - **Monitor Denied Connections**: Check logs with `sudo tail -f /var/log/ufw.log`
-</Callout>
+  :::
 
 ## Conclusion
 

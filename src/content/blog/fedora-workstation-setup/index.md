@@ -7,17 +7,13 @@ image: './banner.png'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro'
-
 ## Overview
 
 This guide walks through my personal setup for Fedora Workstation on my daily driver laptop. These are tools and configurations I personally prefer and use daily for development and productivity. Your preferences may differ, so feel free to adapt this setup to your specific needs and workflow.
 
-<Callout>
-  Credit to [devangshekhawat](https://github.com/devangshekhawat) for some parts
-  of this guide, adopted from
-  [Fedora-44-Post-Install-Guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide).
-</Callout>
+:::note
+Credit to [devangshekhawat](https://github.com/devangshekhawat) for some parts of this guide, adopted from [Fedora-44-Post-Install-Guide](https://github.com/devangshekhawat/Fedora-44-Post-Install-Guide).
+:::
 
 ## Prerequisites
 
@@ -39,10 +35,9 @@ These packages provide system monitoring, development tools, and customization o
 sudo dnf install btop nodejs24 nextcloud-client gnome-tweaks gnome-extensions-app
 ```
 
-<Callout type="tip">
-  For LTS stability in production environments, consider installing `nodejs20`
-  instead of `nodejs24`.
-</Callout>
+:::tip
+For LTS stability in production environments, consider installing `nodejs20` instead of `nodejs24`.
+:::
 
 ## Install Visual Studio Code
 
@@ -61,10 +56,9 @@ sudo dnf check-update
 sudo dnf install code
 ```
 
-<Callout type="tip">
-  After installation, launch VS Code with `code` and customize it with
-  extensions for your preferred languages and tools.
-</Callout>
+:::tip
+After installation, launch VS Code with `code` and customize it with extensions for your preferred languages and tools.
+:::
 
 ## Configure Git and Generate SSH Key
 
@@ -134,11 +128,9 @@ sudo tailscale set --operator=username
 sudo tailscale set --accept-routes
 ```
 
-<Callout type="warning">
-  Enabling `--accept-routes` allows other Tailscale machines to send traffic
-  through your device. Only enable this if you understand the security
-  implications.
-</Callout>
+:::warning
+Enabling `--accept-routes` allows other Tailscale machines to send traffic through your device. Only enable this if you understand the security implications.
+:::
 
 ## Install RPM Fusion
 
@@ -157,10 +149,9 @@ sudo dnf swap ffmpeg-free ffmpeg --allowerasing
 sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 ```
 
-<Callout type="warning">
-  The `--allowerasing` flag removes conflicting packages. Review what's being
-  removed before confirming.
-</Callout>
+:::warning
+The `--allowerasing` flag removes conflicting packages. Review what's being removed before confirming.
+:::
 
 ## Hardware Video Acceleration
 
@@ -175,10 +166,9 @@ sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
 sudo dnf install libva-intel-driver
 ```
 
-<Callout type="tip">
-  If you have an AMD or NVIDIA GPU, install the appropriate drivers for hardware
-  acceleration support.
-</Callout>
+:::tip
+If you have an AMD or NVIDIA GPU, install the appropriate drivers for hardware acceleration support.
+:::
 
 ## Disable removable media auto mount and open
 
@@ -205,10 +195,9 @@ sudo npm install -g bun
 
 ## Next Steps
 
-<Callout>
-  Your Fedora setup is complete! Here are some recommendations to personalize
-  your environment further.
-</Callout>
+:::note
+Your Fedora setup is complete! Here are some recommendations to personalize your environment further.
+:::
 
 - Customize GNOME using the Tweaks app for keyboard shortcuts and appearance
 - Install VS Code extensions for your preferred programming languages

@@ -7,8 +7,6 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 This tutorial demonstrates how to dynamically enable a submit button only when at least one form field has been filled. This pattern is useful for:
@@ -23,15 +21,21 @@ Let's create a simple form with multiple input types:
 
 ```html
 <form class="cc-form">
-  <input type="email" id="email" class="email" name="email" placeholder="Email">
-  <input type="text" id="name" class="name" name="name" placeholder="Name">
-  <input type="text" id="city" class="city" name="city" placeholder="City">
+  <input
+    type="email"
+    id="email"
+    class="email"
+    name="email"
+    placeholder="Email"
+  />
+  <input type="text" id="name" class="name" name="name" placeholder="Name" />
+  <input type="text" id="city" class="city" name="city" placeholder="City" />
   <select name="dropdown" id="dropdown" class="dropdown">
     <option value="" selected>Choose...</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
   </select>
-  <input name="checkbox" type="checkbox" value="true">
+  <input name="checkbox" type="checkbox" value="true" />
   <button type="submit" id="search" disabled>Search</button>
 </form>
 ```
@@ -43,45 +47,45 @@ Note that the button starts **disabled** — we'll enable it via JavaScript when
 Here's the complete jQuery solution:
 
 ```javascript
-$(document).ready(function(){
+$(document).ready(function () {
   // Initial validation on page load
-  validateButton();
-  
+  validateButton()
+
   // Attach event listeners to form inputs
-  $('.cc-form input:text').keyup(validateButton);
-  $('.cc-form select').change(validateButton);
-  $('.cc-form input:checkbox').change(validateButton);
-});
+  $('.cc-form input:text').keyup(validateButton)
+  $('.cc-form select').change(validateButton)
+  $('.cc-form input:checkbox').change(validateButton)
+})
 
 function validateButton() {
-  let hasValue = false;
-  
+  let hasValue = false
+
   // Check text inputs and select dropdowns
-  $('.cc-form input:text, .cc-form select').each(function(){
+  $('.cc-form input:text, .cc-form select').each(function () {
     if ($.trim($(this).val()).length > 0) {
-      hasValue = true;
+      hasValue = true
     }
-  });
+  })
 
   // Check checkboxes
-  $('.cc-form input:checkbox').each(function() {
-    if($(this).filter(':checked').length > 0) {
-      hasValue = true;
+  $('.cc-form input:checkbox').each(function () {
+    if ($(this).filter(':checked').length > 0) {
+      hasValue = true
     }
-  });
+  })
 
   // Enable or disable button based on validation
-  if(hasValue){
-    $('#search').removeAttr('disabled');
+  if (hasValue) {
+    $('#search').removeAttr('disabled')
   } else {
-    $('#search').attr('disabled', 'disabled');
+    $('#search').attr('disabled', 'disabled')
   }
 }
 ```
 
-<Callout variant="note">
+:::note
 The logic inverts the common pattern: instead of disabling when invalid, we **enable when valid**. The button starts disabled and becomes enabled only when at least one field has a value.
-</Callout>
+:::
 
 ## How It Works
 
@@ -108,48 +112,48 @@ The `validateButton()` function:
 5. Checks all checkboxes separately using `.filter(':checked')`
 6. **Enables button** if `hasValue` is true, **disables** if false
 
-<Callout variant="tip">
+:::tip
 The `$.trim()` function removes leading and trailing whitespace, so a field with only spaces won't trigger the button.
-</Callout>
+:::
 
 ## Complete Working Example
 
 ```javascript
 // Alternative: More modern vanilla JavaScript approach
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.querySelector('.cc-form');
-  const button = document.querySelector('#search');
-  
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.cc-form')
+  const button = document.querySelector('#search')
+
   function validateButton() {
-    const inputs = form.querySelectorAll('input:not([type="checkbox"]), select');
-    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-    
-    let hasValue = false;
-    
+    const inputs = form.querySelectorAll('input:not([type="checkbox"]), select')
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]')
+
+    let hasValue = false
+
     // Check text inputs and selects
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       if (input.value.trim().length > 0) {
-        hasValue = true;
+        hasValue = true
       }
-    });
-    
+    })
+
     // Check checkboxes
-    checkboxes.forEach(checkbox => {
+    checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        hasValue = true;
+        hasValue = true
       }
-    });
-    
-    button.disabled = !hasValue;
+    })
+
+    button.disabled = !hasValue
   }
-  
+
   // Listen to all input changes
-  form.addEventListener('input', validateButton);
-  form.addEventListener('change', validateButton);
-  
+  form.addEventListener('input', validateButton)
+  form.addEventListener('change', validateButton)
+
   // Initial validation
-  validateButton();
-});
+  validateButton()
+})
 ```
 
 ## Testing Your Form
@@ -160,9 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
 4. Clear all fields — the button becomes **disabled** again
 5. Select a checkbox — the button becomes **enabled**
 
-<Callout variant="warning">
+:::warning
 Remember to test all input types: text fields, dropdowns, and checkboxes to ensure the validation works correctly across your form.
-</Callout>
+:::
 
 ## Live Demo & Source Code
 

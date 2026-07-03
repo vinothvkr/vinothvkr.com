@@ -7,13 +7,11 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro'
-
 This comprehensive guide walks you through the process of restoring the stock Oxygen OS from any custom ROM on OnePlus 7 and newer devices. While this method may work on OnePlus 7 and earlier versions, it has been verified to work flawlessly on the OnePlus 7T.
 
-<Callout variant="warning">
+:::warning
 **Important:** Please read through the entire guide at least once before following the steps to avoid issues from missed instructions. Additionally, **backup all your data** before proceeding, as this process will wipe your device.
-</Callout>
+:::
 
 ## Requirements
 
@@ -37,15 +35,18 @@ Before you begin, make sure you have the following:
 ### Step 2: Extract ROM Files
 
 1. Open PowerShell or Command Prompt and navigate to your android folder:
+
    ```
    cd C:\android
    ```
 
 2. Extract the ROM using payload-dumper-go:
+
    ```
    .\payload-dumper-go.exe .\OnePlusXXXX_...._XXXX.zip
    ```
-   *(Replace `OnePlusXXXX_...._XXXX.zip` with your actual ROM filename)*
+
+   _(Replace `OnePlusXXXX_...._XXXX.zip` with your actual ROM filename)_
 
 3. Wait for the extraction to complete. You'll see a new folder named `extracted_XXXXXXXX_XXXXX`
 
@@ -53,13 +54,13 @@ Before you begin, make sure you have the following:
    ```
    cd extracted_XXXXXXXX_XXXXX
    ```
-   *(Replace with your actual extracted folder name)*
+   _(Replace with your actual extracted folder name)_
 
 ## Flashing Process
 
-<Callout variant="warning">
+:::warning
 **Warning:** The flashing process will erase all data on your device. Ensure you have backed up everything important before proceeding.
-</Callout>
+:::
 
 ### Step 1: Boot into Fastboot Mode
 
@@ -74,6 +75,7 @@ Before you begin, make sure you have the following:
 ### Step 2: Flash Boot and Recovery
 
 1. Flash the boot and recovery images:
+
    ```
    fastboot flash --slot=all boot boot.img
    fastboot flash --slot=all recovery recovery.img
@@ -125,15 +127,16 @@ Before you begin, make sure you have the following:
    fastboot flash --slot=all product product.img
    ```
 
-<Callout variant="note">
+:::note
 The flashing process may take 10-15 minutes. Do not disconnect your device or interrupt the process. Wait for all commands to complete successfully.
-</Callout>
+:::
 
 ## Post-Flash Steps
 
 ### Option 1: Reboot Device (Recommended)
 
 If you want to keep the bootloader unlocked:
+
 ```
 fastboot reboot
 ```
@@ -145,11 +148,13 @@ Your device will boot into the stock Oxygen OS with a fresh installation.
 If you want to restore the bootloader lock:
 
 1. Reboot to bootloader:
+
    ```
    fastboot reboot bootloader
    ```
 
 2. Lock the bootloader:
+
    ```
    fastboot oem lock
    ```

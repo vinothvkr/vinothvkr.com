@@ -7,15 +7,13 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 Proper exception logging is critical for maintaining application reliability and debugging issues in production. This tutorial demonstrates how to implement a database logger using Exception Filters in ASP.NET Core MVC projects.
 
-<Callout variant="note">
+:::note
 **Why a Separate DbContext?** When an exception occurs during database operations, using the same DbContext for logging can cause issues. The original DbContext remains in a failed state and cannot save new data. A separate DbContext ensures exception logs are saved independently.
-</Callout>
+:::
 
 ## Step 1: Create the LogEntry Model
 
@@ -64,9 +62,9 @@ public class LogDbContext : DbContext
 }
 ```
 
-<Callout variant="note">
+:::note
 A separate DbContext ensures that logging exceptions won't fail even if the main DbContext is in a failed state. This isolation prevents cascading failures during error handling.
-</Callout>
+:::
 
 ## Step 3: Create the Exception Filter
 
@@ -118,9 +116,9 @@ Add the `DblExceptionFilter` to the service collection in your `Startup.cs`:
 public void ConfigureServices(IServiceCollection services)
 {
     // ... other services ...
-    
+
     services.AddScoped<DblExceptionFilter>();
-    
+
     // ... remaining services ...
 }
 ```
@@ -169,9 +167,9 @@ Now any unhandled exceptions that occur in `YourController` will be automaticall
 - **Easy Debugging**: Stack traces are stored for detailed error investigation
 - **Scalable**: Add the filter to any controller by inheriting from `BaseController`
 
-<Callout variant="warning">
+:::warning
 **Important:** Ensure proper error handling in the filter itself. If logging fails, consider adding try-catch blocks to prevent logging errors from disrupting the application flow.
-</Callout>
+:::
 
 ## Complete Example
 

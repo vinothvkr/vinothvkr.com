@@ -1,13 +1,11 @@
 ---
 title: 'Allow action method to be accessed only by anonymous user in Asp.Net Core MVC'
-description: 'In this tutorial let''s see how to allow a controller/action method to be accessed only by an anonymous user in Asp.Net Core MVC project.'
+description: "In this tutorial let's see how to allow a controller/action method to be accessed only by an anonymous user in Asp.Net Core MVC project."
 date: '2018-08-31'
 tags: ['Asp.Net Core']
 image: './banner.webp'
 authors: ['vinothvkr']
 ---
-
-import Callout from '@/components/Callout.astro';
 
 ## Overview
 
@@ -15,12 +13,13 @@ In a typical ASP.NET Core application, you globally restrict access to authentic
 
 This tutorial demonstrates how to create a custom `AnonymousOnlyFilter` attribute to prevent authenticated users from accessing specific pages or actions.
 
-<Callout variant="note">
+:::note
 Use cases include:
+
 - Login and registration pages (should only be accessible before authentication)
 - Password reset pages (prevent authenticated users from resetting another user's password)
 - Public signup forms (keep authenticated users from accessing)
-</Callout>
+  :::
 
 ## Creating the AnonymousOnlyFilter
 
@@ -47,9 +46,9 @@ This custom filter:
 2. **Checks user authentication** — `context.HttpContext.User.Identity.IsAuthenticated` returns true if the user is logged in
 3. **Redirects authenticated users** — If the user is authenticated, they're redirected to the home page (you can change this redirect target)
 
-<Callout variant="tip">
+:::tip
 You can customize the redirect target by changing `new RedirectToActionResult("Index", "Home", "")`. The parameters are: action name, controller name, and route values.
-</Callout>
+:::
 
 ## Applying the Filter
 
@@ -102,9 +101,9 @@ public class AuthController : Controller
 }
 ```
 
-<Callout variant="warning" title="Filter Execution Order">
+:::warning[Filter Execution Order]
 If you apply both `[AnonymousOnlyFilter]` and `[Authorize]` to the same action, `[Authorize]` is checked first, so the AnonymousOnly filter never executes. Remove `[Authorize]` when using `[AnonymousOnlyFilter]`.
-</Callout>
+:::
 
 ## Summary
 

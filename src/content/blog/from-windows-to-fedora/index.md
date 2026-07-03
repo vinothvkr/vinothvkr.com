@@ -7,8 +7,6 @@ image: './banner.png'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro'
-
 ## Introduction
 
 After years of using Windows as my primary operating system, I decided to make the leap to Fedora Linux. It was a decision I was nervous about, but now, months into the migration, I can confidently say it's one of the best decisions I've made for my development workflow and overall computing experience. This post shares my journey, the reasons behind the switch, and why I'm genuinely enjoying Fedora.
@@ -57,11 +55,9 @@ Being part of the open-source ecosystem is refreshing. I contribute more easily 
 
 On Windows, you're limited in what you can customize. On Fedora, everything is configurable. Want to change your desktop environment? Done. Want to modify system behavior? You have full control. This flexibility is incredibly empowering.
 
-<Callout type="tip">
-  If you're thinking about making the switch to Fedora, take your time to
-  understand the basics. Linux is powerful, but it rewards those who are willing
-  to learn.
-</Callout>
+:::tip
+If you're thinking about making the switch to Fedora, take your time to understand the basics. Linux is powerful, but it rewards those who are willing to learn.
+:::
 
 ## The Learning Curve
 

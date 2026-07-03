@@ -7,21 +7,19 @@ image: './banner.webp'
 authors: ['vinothvkr']
 ---
 
-import Callout from '@/components/Callout.astro';
-
 ## Overview
 
 By default, Ubuntu 18.04 LTS includes PHP 7.2 in its official repositories. However, many modern applications require PHP 7.3 or later—for example, the latest WordPress versions, Laravel frameworks, and other web applications.
 
 This guide shows how to install PHP 7.3 on Ubuntu 18.04 using Ondřej Surý's PPA, a widely-trusted source for newer PHP versions.
 
-<Callout variant="note">
+:::note
 **Why Not Use Official Repos?** Ubuntu LTS versions (like 18.04) maintain package versions for stability. Third-party PPAs like Ondřej's provide newer versions with security updates for the application lifecycle.
-</Callout>
+:::
 
 ## Prerequisites
 
-- Ubuntu 18.04 LTS or derivative (Linux Mint, Pop!_OS, etc.)
+- Ubuntu 18.04 LTS or derivative (Linux Mint, Pop!\_OS, etc.)
 - Root or sudo access
 - Internet connection
 - apt package manager
@@ -37,9 +35,9 @@ sudo apt update
 
 This adds the PPA to your system and refreshes the package list.
 
-<Callout variant="tip">
+:::tip
 Adding multiple repos: You can add other PPAs from Ondřej for related tools like `ppa:ondrej/apache2` (for Apache) or `ppa:ondrej/nginx` (for Nginx) if needed.
-</Callout>
+:::
 
 ## Step 2: Install PHP 7.3
 
@@ -69,15 +67,16 @@ Most applications need additional PHP extensions:
 sudo apt install php7.3-mysql php7.3-gd php7.3-curl php7.3-mbstring php7.3-xml php7.3-zip
 ```
 
-<Callout variant="note">
+:::note
 **Common Extensions Explained:**
+
 - `php7.3-mysql` — MySQL/MariaDB database support
 - `php7.3-gd` — Image manipulation (required for many CMS platforms)
 - `php7.3-curl` — HTTP requests (needed for API calls)
 - `php7.3-mbstring` — Multi-byte string support (internationalization)
 - `php7.3-xml` — XML parsing support
 - `php7.3-zip` — ZIP archive support
-</Callout>
+  :::
 
 ## Step 3: Verify the Installation
 
@@ -110,9 +109,9 @@ echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 Then visit `http://yourserver/info.php` in a browser.
 
-<Callout variant="warning">
+:::warning
 **Security:** Always delete the `info.php` file after verification. Exposing phpinfo() publicly reveals system details to attackers.
-</Callout>
+:::
 
 ## Step 4: Enable PHP-FPM Service (Nginx only)
 
