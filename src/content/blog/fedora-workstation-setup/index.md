@@ -103,9 +103,6 @@ You can manage installed extensions using the "Extensions" app installed earlier
 # Add Tailscale repository
 sudo dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-# Update cache and install
-sudo dnf check-update
-
 sudo dnf install tailscale
 
 # Enable and start the Tailscale daemon
@@ -124,9 +121,7 @@ To show Tailscale status in your system tray:
 tailscale configure systray --enable-startup=systemd
 
 # Enable and start the user-level systray service
-systemctl --user daemon-reload
-systemctl --user enable tailscale-systray
-systemctl --user start tailscale-systray
+systemctl --user enable --now tailscale-systray
 ```
 
 ### Optional: Grant Tailscale Operator Privileges
@@ -190,6 +185,22 @@ sudo dnf install libva-intel-driver
 ```bash
 gsettings set org.gnome.desktop.media-handling automount false
 gsettings set org.gnome.desktop.media-handling automount-open false
+```
+
+## Disable Bluetooth Auto start at boot
+
+```bash
+sudo nano /etc/bluetooth/main.conf
+```
+
+```bash
+AutoStart=false
+```
+
+## Install Bun Javascript Toolkit
+
+```bash
+sudo npm install -g bun
 ```
 
 ## Next Steps
