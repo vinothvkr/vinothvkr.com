@@ -1,7 +1,7 @@
 ---
 import sansWoff2 from "@/assets/fonts/IBMPlexSans-VariableFont_wdth,wght.woff2?url"
 import sansItalicWoff2 from "@/assets/fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.woff2?url"
-import { SITE } from "@/consts"
+import { ANALYTICS, SITE } from "@/consts"
 ---
 
 <head>
@@ -61,6 +61,19 @@ import { SITE } from "@/consts"
     if (theme === "light" || theme === "dark")
       document.documentElement.dataset.theme = theme
   </script>
+
+  <!-- Google Analytics -->
+  {ANALYTICS.google && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.google}`}></script>
+      <script is:inline define:vars={{ googleId: ANALYTICS.google }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', googleId);
+      </script>
+    </>
+  )}
 
   <slot />
 </head>
