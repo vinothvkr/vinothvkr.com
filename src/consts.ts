@@ -1,6 +1,7 @@
 import type { SvgComponent } from 'astro/types'
 import Email from '@/assets/icons/email.svg'
 import GitHub from '@/assets/icons/github.svg'
+import LinkedIn from '@/assets/icons/linkedin.svg'
 import RSS from '@/assets/icons/rss.svg'
 import Twitter from '@/assets/icons/twitter.svg'
 
@@ -26,7 +27,8 @@ export const NAVIGATION = [
 
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
   { href: 'https://github.com/vinothvkr', label: 'GitHub', icon: GitHub },
-  { href: 'https://twitter.com/_vinothvkr', label: 'Twitter', icon: Twitter },
+  { href: 'https://www.linkedin.com/in/vinothvkr', label: 'LinkedIn', icon: LinkedIn },
+  { href: 'https://twitter.com/itsvinothvkr', label: 'Twitter', icon: Twitter },
   { href: 'mailto:vinothvkr@hotmail.com', label: 'Email', icon: Email },
   { href: '/rss.xml', label: 'RSS', icon: RSS },
 ]
