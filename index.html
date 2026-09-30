@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Resume of Vinoth Kumar Rajendran, Senior Software Engineer and IT Analyst in Chennai, India.">
+  <meta name="theme-color" content="#f4f3ed">
+  <title>Vinoth Kumar Rajendran | Senior Software Engineer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f3ed;
+      --surface: #fffefa;
+      --ink: #202b2a;
+      --muted: #596765;
+      --line: #d7ded8;
+      --green: #176b5b;
+      --green-dark: #104d43;
+      --coral: #c46045;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 95% 0%, rgba(196, 96, 69, .08), transparent 28rem),
+        linear-gradient(135deg, rgba(23, 107, 91, .035) 25%, transparent 25%) 0 0 / 18px 18px,
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    a { color: var(--green-dark); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--coral); }
+    a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+    .page {
+      width: min(1120px, calc(100% - 48px));
+      margin: 44px auto;
+      background: var(--surface);
+      box-shadow: 0 22px 70px rgba(32, 43, 42, .09);
+    }
+
+    .masthead {
+      position: relative;
+      overflow: hidden;
+      padding: 54px 64px 42px;
+      color: #f9faf4;
+      background: var(--green-dark);
+    }
+
+    .masthead::after {
+      position: absolute;
+      right: -74px;
+      bottom: -182px;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(255, 255, 255, .17);
+      border-radius: 50%;
+      box-shadow: 0 0 0 34px rgba(255, 255, 255, .035), 0 0 0 70px rgba(255, 255, 255, .025);
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow, .section-label, .role-date {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { margin: 0 0 12px; color: #a7d3c2; }
+    h1 {
+      max-width: 740px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 66px);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .headline { margin: 14px 0 26px; color: #d2e6dc; font-size: 17px; }
+    .contact-list {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 23px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #f2f5ef;
+      font-size: 13px;
+    }
+    .contact-list a { color: inherit; }
+    .contact-list a:hover { color: #f0b29e; }
+    .contact-list li::before { margin-right: 8px; color: #e69b7e; content: "+"; }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(230px, .78fr) minmax(0, 1.75fr);
+      gap: 0;
+      padding: 42px 64px 58px;
+    }
+
+    aside { padding-right: 40px; border-right: 1px solid var(--line); }
+    main { min-width: 0; padding-left: 44px; }
+    section + section { margin-top: 37px; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 17px;
+      color: var(--green);
+    }
+    .section-label::after { flex: 1; height: 1px; background: var(--line); content: ""; }
+    h2, h3, p { margin-top: 0; }
+    h2 { margin-bottom: 0; font-size: inherit; }
+    .summary { color: #3e4a48; font-size: 14px; }
+
+    .skill-group { margin: 0 0 17px; }
+    .skill-group h3, .credential h3 {
+      margin: 0 0 4px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .skill-group p, .credential p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .credential + .credential { margin-top: 15px; }
+
+    .timeline { position: relative; }
+    .job {
+      position: relative;
+      padding: 0 0 27px 22px;
+      border-left: 1px solid var(--line);
+    }
+    .job:last-child { padding-bottom: 0; border-left-color: transparent; }
+    .job::before {
+      position: absolute;
+      top: 7px;
+      left: -5px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--surface);
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 1px var(--coral);
+      content: "";
+    }
+    .job h3 { margin: 0; font-size: 17px; line-height: 1.35; }
+    .company { margin: 2px 0 3px; color: var(--green-dark); font-weight: 700; }
+    .role-date { margin: 0 0 8px; color: var(--muted); letter-spacing: .07em; }
+    .project { margin: 0 0 8px; color: #3e4a48; font-size: 13px; }
+    .job ul { margin: 8px 0 0; padding-left: 18px; color: #3e4a48; }
+    .job li { padding-left: 3px; }
+    .job li + li { margin-top: 5px; }
+    .tech { margin-top: 9px; color: var(--muted); font-size: 12px; }
+    .tagline { color: var(--green-dark); font-weight: 700; }
+    .footer-note { margin: 35px 0 0; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 760px) {
+      .page { width: min(100% - 24px, 620px); margin: 12px auto; }
+      .masthead { padding: 36px 28px 30px; }
+      .content { grid-template-columns: 1fr; padding: 30px 28px 42px; }
+      aside { padding: 0 0 30px; border: 0; border-bottom: 1px solid var(--line); }
+      main { padding: 32px 0 0; }
+      .contact-list { gap: 7px 16px; }
+    }
+
+    @media (max-width: 420px) {
+      body { font-size: 14px; }
+      .page { width: 100%; margin: 0; }
+      .masthead { padding: 31px 22px 27px; }
+      .content { padding: 27px 22px 38px; }
+      h1 { font-size: 39px; }
+    }
+
+    @media print {
+      @page { size: auto; margin: 14mm; }
+      body { background: #fff; font-size: 10pt; }
+      .page { width: 100%; margin: 0; box-shadow: none; }
+      .masthead { padding: 25px 30px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .masthead::after { display: none; }
+      .content { padding: 25px 30px; }
+      a { color: inherit; text-decoration: none; }
+      .job, .skill-group, .credential { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <p class="eyebrow">Software Engineering · Chennai, India</p>
+      <h1>Vinoth Kumar Rajendran</h1>
+      <p class="headline">Senior Software Engineer &amp; IT Analyst Applications</p>
+      <ul class="contact-list" aria-label="Contact information">
+        <li><a href="tel:+919444933198">+91 94449 33198</a></li>
+        <li><a href="mailto:vinothvkr@hotmail.com">vinothvkr@hotmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/vinothvkr">LinkedIn</a></li>
+        <li><a href="https://vinothvkr.com/">vinothvkr.com</a></li>
+      </ul>
+    </header>
+
+    <div class="content">
+      <aside>
+        <section aria-labelledby="overview-title">
+          <div class="section-label"><h2 id="overview-title">Profile</h2></div>
+          <p class="summary">Senior Software Engineer with 14+ years of experience building and supporting enterprise web applications across Microsoft technologies. Experienced across the SDLC, from requirements analysis and solution design through development, code review, testing, deployment and support. Lead Code Reviewer who uses GitHub Copilot to accelerate day-to-day development while applying engineering judgment and review practices.</p>
+        </section>
+
+        <section aria-labelledby="skills-title">
+          <div class="section-label"><h2 id="skills-title">Technical Skills</h2></div>
+          <div class="skill-group"><h3>Languages</h3><p>C#, TypeScript, JavaScript, Python, PHP</p></div>
+          <div class="skill-group"><h3>Backend</h3><p>ASP.NET, ASP.NET Core, MVC, Web API, Entity Framework, LINQ, REST APIs</p></div>
+          <div class="skill-group"><h3>Frontend</h3><p>Angular, React, Knockout.js, HTML5, CSS3, jQuery, AJAX, Bootstrap, Kendo UI, MUI</p></div>
+          <div class="skill-group"><h3>Data</h3><p>Microsoft SQL Server, Oracle, MySQL, PostgreSQL</p></div>
+          <div class="skill-group"><h3>Architecture &amp; Delivery</h3><p>N-Tier Architecture, Domain-Driven Design, Dependency Injection, Repository / Unit of Work, Azure DevOps, CI/CD, Git, TFS</p></div>
+          <div class="skill-group"><h3>AI-Assisted Development</h3><p>GitHub Copilot</p></div>
+        </section>
+
+        <section aria-labelledby="education-title">
+          <div class="section-label"><h2 id="education-title">Education &amp; Credentials</h2></div>
+          <div class="credential">
+            <h3>Bachelor of Commerce</h3>
+            <p>First Class, 2011<br>University of Madras, Chennai</p>
+          </div>
+          <div class="credential">
+            <h3>Lean Six Sigma White Belt</h3>
+            <p>Certified</p>
+          </div>
+          <div class="credential">
+            <h3>Recognition</h3>
+            <p>“Going Extra Miles” award, Maersk Global Centre</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="interests-title">
+          <div class="section-label"><h2 id="interests-title">Interests</h2></div>
+          <p class="summary">Aquascaping; technology blogging and writing about emerging tech trends, AI tools and coding tips.</p>
+        </section>
+      </aside>
+
+      <main>
+        <section aria-labelledby="experience-title">
+          <div class="section-label"><h2 id="experience-title">Experience</h2></div>
+          <div class="timeline">
+            <article class="job">
+              <h3>IT Analyst Applications</h3>
+              <p class="company">Caterpillar India Engineering Solutions Private Limited · Chennai, India</p>
+              <p class="role-date">March 2025 – Present</p>
+              <p class="project"><span class="tagline">Project:</span> Validation Manager, Caterpillar Inc.</p>
+              <ul>
+                <li>Partnered with the Product Owner to clarify requirements and translate them into technical solutions; contributed throughout Agile/Scrum delivery.</li>
+                <li>Built ASP.NET MVC controllers, view models, backend services and Web API GET/PUT functionality, using repository and Unit of Work patterns with LINQ.</li>
+                <li>Developed Oracle SQL/T-SQL queries, triggers and stored procedures, plus data-driven screens with Knockout.js and Kendo UI.</li>
+                <li>Served as Lead Code Reviewer, reviewing code quality and maintainability and supporting consistent team practices.</li>
+                <li>Used GitHub Copilot for implementation, refactoring, debugging, code exploration and testing, validating and refining its output through review.</li>
+              </ul>
+              <p class="tech">C#, ASP.NET MVC / Web API, Entity Framework, Knockout.js, TypeScript, Kendo UI, Oracle, Azure DevOps</p>
+            </article>
+
+            <article class="job">
+              <h3>Senior Software Engineer</h3>
+              <p class="company">Caterpillar India Engineering Solutions Private Limited · Chennai, India</p>
+              <p class="role-date">April 2023 – March 2025 · Payroll under TEKsystems Global Services Pvt Ltd</p>
+              <ul>
+                <li>Partnered with the Product Owner to clarify requirements and translate them into technical solutions; contributed throughout Agile/Scrum delivery.</li>
+                <li>Built ASP.NET MVC controllers, view models, backend services and Web API GET/PUT functionality, using repository and Unit of Work patterns with LINQ.</li>
+                <li>Developed Oracle SQL/T-SQL queries, triggers and stored procedures, plus data-driven screens with Knockout.js and Kendo UI.</li>
+              </ul>
+              <p class="tech">C#, ASP.NET MVC / Web API, Entity Framework, Knockout.js, TypeScript, Kendo UI, Oracle, Azure DevOps</p>
+            </article>
+
+            <article class="job">
+              <h3>Senior Software Engineer</h3>
+              <p class="company">Rtec Instruments India Pvt Ltd · Bangalore, India</p>
+              <p class="role-date">January 2020 – March 2023</p>
+              <p class="project"><span class="tagline">Project:</span> Manufacturing Management System</p>
+              <ul>
+                <li>Developed a solution for end-to-end manufacturing lifecycle management.</li>
+                <li>Applied Domain-Driven Design across distributed services, application, domain and infrastructure layers, using Entity Framework Core repositories.</li>
+                <li>Built the Angular client and deployed the application to DigitalOcean; it is used in five countries.</li>
+              </ul>
+              <p class="tech">ASP.NET Core, Entity Framework Core, Angular, Node.js, HTML5, CSS3, Bootstrap, Git</p>
+            </article>
+
+            <article class="job">
+              <h3>Software Developer</h3>
+              <p class="company">Qatalys Software Technologies · Chennai, India</p>
+              <p class="role-date">February 2018 – December 2019</p>
+              <p class="project"><span class="tagline">Project:</span> Dory Toxlink (Abbott)</p>
+              <ul>
+                <li>Designed a three-tier ASP.NET Core MVC application with service and repository layers; implemented data access using Entity Framework Core Database First.</li>
+                <li>Built application features with C#, Razor, jQuery and AJAX; used dependency injection and added client- and server-side validation.</li>
+                <li>Implemented server-side DataTables paging and filtering, PDF reports with ActiveReports, multilingual resources and ASP.NET Core Identity authentication.</li>
+              </ul>
+              <p class="tech">.NET Core MVC, Entity Framework Core, Identity Server, SQL Server, DataTables, jQuery, JavaScript</p>
+            </article>
+
+            <article class="job">
+              <h3>Senior Officer</h3>
+              <p class="company">Allsec Technologies · Chennai, India</p>
+              <p class="role-date">April 2017 – January 2018</p>
+              <p class="project"><span class="tagline">Project:</span> Expense Reimbursement System</p>
+              <ul>
+                <li>Designed and implemented an ASP.NET MVC application with Razor and Entity Framework, translating client requirements and mockups into a responsive web interface.</li>
+                <li>Built reusable partial views and interactive navigation; used LINQ and Lambda expressions for data operations.</li>
+              </ul>
+              <p class="tech">C#, ASP.NET MVC, Entity Framework, SQL Server, HTML5, CSS3, Bootstrap, jQuery, JavaScript</p>
+            </article>
+
+            <article class="job">
+              <h3>Specialist</h3>
+              <p class="company">Maersk Global Service Centre · Chennai, India</p>
+              <p class="role-date">July 2012 – April 2017</p>
+              <p class="project"><span class="tagline">Projects:</span> Easy Manifest (customs manifest), Shipment Booking System, Vessel Reconciliation System</p>
+              <ul>
+                <li>Developed and maintained web applications for customer service, online services and business operations.</li>
+                <li>Built MVC and Razor interfaces with HTML, CSS, JavaScript and jQuery, and supported existing applications and users.</li>
+              </ul>
+              <p class="tech">C#, ASP.NET, SQL Server, HTML, CSS, JavaScript, jQuery</p>
+            </article>
+          </div>
+        </section>
+        <p class="footer-note">Chennai, India · <a href="https://vinothvkr.com/">vinothvkr.com</a></p>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
